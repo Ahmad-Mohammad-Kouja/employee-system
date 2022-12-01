@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->date('absence_date');
-            $table->string('absence_reason');
+            $table->string('absence_reason')->nullable();
             $table->timestamps();
         });
     }
