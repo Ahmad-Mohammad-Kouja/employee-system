@@ -9,6 +9,12 @@ class Rate extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'rated_user_id',
+        'rater_user_id',
+        'rate',
+    ];
+
     public function rated() {
         return $this->belongsTo(User::class, 'rated_id');
     }
