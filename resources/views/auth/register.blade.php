@@ -16,6 +16,25 @@
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
+            <!-- Username -->
+            <div class="mt-4">
+                <x-input-label for="username" :value="__('Username')" />
+                <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required/>
+                <x-input-error :messages="$errors->get('username')" class="mt-2" />
+            </div>
+
+            <!-- Department -->
+            <div class="mt-4">
+                <x-input-label for="department" :value="__('Department')" />
+                <x-select id="department" class="block mt-1 w-full" name="department_id" :value="old('department_id')" required>
+                    <option {{old('department_id') === null? 'selected' : ''}} disabled>select a department ...</option>
+                    @foreach ($departments as $department)
+                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                    @endforeach
+                </x-select>
+                <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
+            </div>
+
             <!-- Email Address -->
             <div class="mt-4">
                 <x-input-label for="email" :value="__('Email')" />
