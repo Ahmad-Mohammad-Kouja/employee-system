@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('rated_user_id');
-            $table->unsignedBigInteger('rater_user_id');
             $table->double('rate', 4, 2);
-            $table->dateTime('rated_at')->default(now()->toDateTime());
+            $table->dateTime('rated_at')->useCurrent();
             $table->timestamps();
         });
     }

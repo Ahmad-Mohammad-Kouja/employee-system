@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->string('password');
             $table->string('qr_code')->unique();
-            $table->unsignedBigInteger('department_id');
             $table->boolean('is_admin')->default(false);
             $table->boolean('is_logingin')->default(false);
             $table->boolean('is_archived')->default(false);
