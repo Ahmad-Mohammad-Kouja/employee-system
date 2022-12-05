@@ -14,24 +14,24 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreign('department_id')->references('id')->on('departments'); 
+            $table->foreignId('department_id')->constrained();
         });
-        
+
         Schema::table('tasks', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreignId('user_id')->constrained();
         });
 
         Schema::table('work_times', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreignId('user_id')->constrained();
         });
 
         Schema::table('absences', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users'); 
+            $table->foreignId('user_id')->constrained();
         });
 
         Schema::table('rates', function (Blueprint $table) {
-            $table->foreign('rated_user_id')->references('id')->on('users'); 
-            $table->foreign('rater_user_id')->references('id')->on('users'); 
+            $table->foreignId('rated_user_id')->constrained()->on('users');
+            $table->foreignId('rater_user_id')->constrained()->on('users');
         });
     }
 };

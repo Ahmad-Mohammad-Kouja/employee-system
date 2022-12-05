@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('work_times', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->dateTime('login_time' );
             $table->dateTime('logout_time')->nullable();
             $table->timestamps();
