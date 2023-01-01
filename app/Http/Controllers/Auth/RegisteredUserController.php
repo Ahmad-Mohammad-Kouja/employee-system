@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Models\User;
 use App\Models\Department;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
@@ -34,24 +33,14 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'alpha_dash', 'max:255', 'unique:'.User::class],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'department_id' => ['required', 'numeric', 'max:255'],
-        ]);
+        $attributes = $request->validated();
 
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'qr_code' => Hash::make($request->username),
-            'department_id' => $request->department_id,
-        ]);
+        $attributes['password'] = Hash::make($attributes['password']);
+        $attributes['qr_code'] = Hash::make($attributes['username']);
+
+        $user = User::create($attributes);
 
         event(new Registered($user));
 
