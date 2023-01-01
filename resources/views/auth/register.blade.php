@@ -11,40 +11,40 @@
 
             <!-- Name -->
             <div>
-                <x-input-label for="name" :value="__('Name')" />
+                <x-input-label for="name" :value="__('Name')" required/>
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
+            <!-- Email Address -->
+            <div class="mt-4">
+                <x-input-label for="email" :value="__('Email')" required />
+                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
+                <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            </div>
+
             <!-- Username -->
             <div class="mt-4">
-                <x-input-label for="username" :value="__('Username')" />
+                <x-input-label for="username" :value="__('Username')" required />
                 <x-text-input id="username" class="block mt-1 w-full" type="text" name="username" :value="old('username')" required/>
                 <x-input-error :messages="$errors->get('username')" class="mt-2" />
             </div>
 
             <!-- Department -->
             <div class="mt-4">
-                <x-input-label for="department" :value="__('Department')" />
+                <x-input-label for="department" :value="__('Department')" required />
                 <x-select id="department" class="block mt-1 w-full" name="department_id" :value="old('department_id')" required>
                     <option {{old('department_id') === null? 'selected' : ''}} disabled>select a department ...</option>
                     @foreach ($departments as $department)
-                        <option value="{{ $department->id }}">{{ $department->name }}</option>
+                        <option value="{{ $department->id }}" {{ old('department_id') == $department->id ? 'selected' : '' }}>{{ ucwords($department->name) }}</option>
                     @endforeach
                 </x-select>
                 <x-input-error :messages="$errors->get('department_id')" class="mt-2" />
             </div>
 
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-input-label for="email" :value="__('Email')" />
-                <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-                <x-input-error :messages="$errors->get('email')" class="mt-2" />
-            </div>
-
             <!-- Password -->
             <div class="mt-4">
-                <x-input-label for="password" :value="__('Password')" />
+                <x-input-label for="password" :value="__('Password')" required />
 
                 <x-text-input id="password" class="block mt-1 w-full"
                                 type="password"
@@ -56,7 +56,7 @@
 
             <!-- Confirm Password -->
             <div class="mt-4">
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-input-label for="password_confirmation" :value="__('Confirm Password')" required />
 
                 <x-text-input id="password_confirmation" class="block mt-1 w-full"
                                 type="password"
@@ -65,6 +65,7 @@
                 <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
             </div>
 
+            <!-- Submit -->
             <div class="flex items-center justify-end mt-4">
                 <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('login') }}">
                     {{ __('Already registered?') }}
